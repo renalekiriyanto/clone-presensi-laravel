@@ -11,33 +11,31 @@ class AuthController extends Controller
 {
     public function index()
     {
-        $token = session("token");
-
-        if ($token) {
-            return redirect()->route("absen");
-        }
-
         return view("auth.login");
     }
 
     public function login(Request $r)
     {
-        $data_validate = $r->validate([
+        set_time_limit(30000);
+        $data_valid = $r->validate([
             "userinfo_id" => "required|string|max:255",
             "password" => "required|string|max:255",
         ]);
 
         try {
-            $response = Http::post(
+            $res = Http::post(
                 "http://devpresensi.bukittinggikota.go.id/api/login",
-                $data_validate
+                [
+                    "userinfo_id" => $r->userinfo_id,
+                    "password" => $r->password,
+                ]
             );
 
-            $data = $response->json();
+            $data = $res->json();
 
             session(["token" => $data["token"]]);
 
-            return redirect()->route("absen");
+            return view("absen.index");
         } catch (Exception $err) {
             return redirect()
                 ->route("login_page")

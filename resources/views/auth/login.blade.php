@@ -21,8 +21,7 @@
     <div class="card card-login bg-light-subtle">
         <div class="card-body">
             <h5 class="card-title">Login</h5>
-
-            <form method="POST" action="{{route('login')}}">
+            <form id="form_login" method="post" action="{{route('login')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="userinfo_id" class="form-label d-flex align-items-center">

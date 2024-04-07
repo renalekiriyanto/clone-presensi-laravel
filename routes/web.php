@@ -12,12 +12,3 @@ Route::prefix("login")->group(function () {
 Route::prefix("absen")->group(function () {
     Route::get("/", [AbsenController::class, "index"])->name("absen");
 });
-
-Route::get("/", function () {
-    $token = session()->get("token");
-    if (!$token) {
-        return redirect()->route("login_page");
-    }
-
-    return redirect()->route("absen");
-});
