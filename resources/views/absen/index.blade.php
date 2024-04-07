@@ -3,18 +3,24 @@
 @section('container')
     <div class="container-sm">
         <div class="p-2 mb-3">
-            <a class="btn btn-danger" href="">
+            <a class="btn btn-danger" href="{{route('logout')}}">
                 Logout
             </a>
         </div>
         <div class="p-2 mb-3">
-            <a class="btn btn-success" href="">
+            <a class="btn btn-success" href="{{route('absen.masuk')}}">
                 Absen Masuk
             </a>
-            <a class="btn btn-danger" href="">
+            <a class="btn btn-danger" href="{{route('absen.pulang')}}">
                 Absen Pulang
             </a>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sukses!</strong> {{session('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @if(session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error!</strong> {{session('error')}}

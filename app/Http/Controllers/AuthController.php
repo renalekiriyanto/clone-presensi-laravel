@@ -34,6 +34,7 @@ class AuthController extends Controller
             $data = $res->json();
 
             session(["token" => $data["token"]]);
+            session(['userinfo_id' => $r->userinfo_id]);
 
             return view("absen.index");
         } catch (Exception $err) {
@@ -41,5 +42,10 @@ class AuthController extends Controller
                 ->route("login_page")
                 ->with("error", $err->getMessage());
         }
+    }
+
+    public function logout(Request $r){
+        session()->forget('token');
+        return redirect()->route('login_page')->with('success', 'Berhasil Logout!');
     }
 }
